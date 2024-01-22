@@ -11,8 +11,8 @@
     <Platforms>AnyCPU;x64;x86</Platforms>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Description>An objectively superior to all previous library combination for reading and writing Sonic Heroes and Shadow The Hedgehog .ONE archives.</Description>
-    <Version>1.1.0</Version>
+    <Description>Alternate HeroesONE_R version using prs.net for PRS Compression. This library can is for reading and writing Sonic Heroes and Shadow The Hedgehog .ONE archives.</Description>
+    <Version>1.1.99</Version>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
@@ -68,10 +68,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="csharp-prs" Version="2.1.3">
-      <IncludeAssets>All</IncludeAssets>
-      <PrivateAssets>None</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
 
@@ -80,6 +76,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\prs.net\FraGag.Compression.Prs\FraGag.Compression.Prs.csproj" />
   </ItemGroup>
 
 </Project>
