@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Optimize>false</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	<LangVersion>latest</LangVersion>
@@ -12,9 +11,10 @@
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Description>An objectively superior to all previous library combination for reading and writing Sonic Heroes and Shadow The Hedgehog .ONE archives.</Description>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -68,10 +68,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="csharp-prs" Version="2.1.3">
-      <IncludeAssets>All</IncludeAssets>
-      <PrivateAssets>None</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="prs_rs.Net.Sys" Version="1.0.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
 

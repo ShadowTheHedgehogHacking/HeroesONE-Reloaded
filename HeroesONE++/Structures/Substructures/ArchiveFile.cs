@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using HeroesONE_R.Utilities;
+using System.IO;
 
 namespace HeroesONE_R.Structures.Substructures
 {
@@ -30,7 +31,7 @@ namespace HeroesONE_R.Structures.Substructures
         {
             byte[] data = File.ReadAllBytes(path);
             Name = Path.GetFileName(path);
-            CompressedData = Prs.Compress(ref data);
+            CompressedData = Prs.CompressData(data).ToArray();
             RwVersion.RwVersion = (uint)CommonRWVersions.Heroes;
         }
 
@@ -42,7 +43,7 @@ namespace HeroesONE_R.Structures.Substructures
         public ArchiveFile(string name, byte[] uncompressedData)
         {
             Name = name;
-            CompressedData = Prs.Compress(ref uncompressedData);
+            CompressedData = Prs.CompressData(uncompressedData).ToArray();
             RwVersion.RwVersion = (uint)CommonRWVersions.Heroes;
         }
 
@@ -61,7 +62,7 @@ namespace HeroesONE_R.Structures.Substructures
         /// </summary>
         public byte[] DecompressThis()
         {
-            return Prs.Decompress(ref this.CompressedData);
+            return Prs.DecompressData(this.CompressedData).ToArray();
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace HeroesONE_R.Structures.Substructures
         /// <returns></returns>
         public void WriteToFile(string path)
         {
-            File.WriteAllBytes(path, Prs.Decompress(ref this.CompressedData));
+            File.WriteAllBytes(path, Prs.DecompressData(this.CompressedData).ToArray());
         }
     }
 }

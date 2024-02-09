@@ -183,7 +183,7 @@ namespace HeroesONE_R.Structures
                 else fileEntry = new ONE50FileEntry(Files[x].Name);
 
                 // Set file size.
-                fileEntry.FileSize = Prs.Decompress(ref Files[x].CompressedData).Length;
+                fileEntry.FileSize = (int)Prs.GetDecompressedSize(Files[x].CompressedData);
                 localFiles.Add(fileEntry);
             }
 
