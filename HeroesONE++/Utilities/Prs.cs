@@ -3,9 +3,9 @@ using System;
 
 namespace HeroesONE_R.Utilities
 {
-    internal static class Prs
+    public static class Prs
     {
-        internal static unsafe Span<byte> DecompressData(byte[] compressedData)
+        public static unsafe Span<byte> DecompressData(byte[] compressedData)
         {
             // Calculate the decompressed size to allocate enough memory
             fixed (byte* srcPtr = compressedData)
@@ -21,7 +21,7 @@ namespace HeroesONE_R.Utilities
             }
         }
 
-        internal static unsafe Span<byte> CompressData(byte[] sourceData)
+        public static unsafe Span<byte> CompressData(byte[] sourceData)
         {
             fixed (byte* srcPtr = sourceData)
             {
@@ -36,7 +36,7 @@ namespace HeroesONE_R.Utilities
             }
         }
 
-        internal static unsafe nuint GetDecompressedSize(byte[] compressedData)
+        public static unsafe nuint GetDecompressedSize(byte[] compressedData)
         {
             // Calculate the decompressed size to allocate enough memory
             fixed (byte* srcPtr = compressedData)
