@@ -5,7 +5,7 @@ namespace HeroesONE_R.Utilities
 {
     public static class Prs
     {
-        public static unsafe Span<byte> DecompressData(byte[] compressedData)
+        public static unsafe byte[] DecompressData(Span<byte> compressedData)
         {
             // Calculate the decompressed size to allocate enough memory
             fixed (byte* srcPtr = compressedData)
@@ -15,13 +15,13 @@ namespace HeroesONE_R.Utilities
                 byte[] dest = GC.AllocateUninitializedArray<byte>((int)decompressedSize);
                 fixed (byte* destPtr = &dest[0])
                 {
-                    nuint actualDecompressedSize = NativeMethods.prs_decompress(srcPtr, destPtr);
-                    return dest.AsSpan(0..(int)decompressedSize);
+	                NativeMethods.prs_decompress(srcPtr, destPtr);
+	                return dest;
                 }
             }
         }
 
-        public static unsafe Span<byte> CompressData(byte[] sourceData)
+        public static unsafe Memory<byte> CompressData(Span<byte> sourceData)
         {
             fixed (byte* srcPtr = sourceData)
             {
@@ -31,12 +31,12 @@ namespace HeroesONE_R.Utilities
                 fixed (byte* destPtr = &dest[0])
                 {
                     nuint compressedSize = NativeMethods.prs_compress(srcPtr, destPtr, (nuint)sourceData.Length);
-                    return dest.AsSpan(0..(int)compressedSize);
+                    return dest.AsMemory(0, (int)compressedSize);
                 }
             }
         }
 
-        public static unsafe nuint GetDecompressedSize(byte[] compressedData)
+        public static unsafe nuint GetDecompressedSize(Span<byte> compressedData)
         {
             // Calculate the decompressed size to allocate enough memory
             fixed (byte* srcPtr = compressedData)

@@ -1,5 +1,7 @@
-﻿using HeroesONE_R.Utilities;
+﻿using System;
+using HeroesONE_R.Utilities;
 using System.IO;
+using System.Linq;
 
 namespace HeroesONE_R.Structures.Substructures
 {
@@ -18,7 +20,7 @@ namespace HeroesONE_R.Structures.Substructures
         /// <summary>
         /// Stores the contents of this individual file.
         /// </summary>
-        public byte[] CompressedData;
+        public Memory<byte> CompressedData;
 
         /*
             Set of constructors.
@@ -31,7 +33,7 @@ namespace HeroesONE_R.Structures.Substructures
         {
             byte[] data = File.ReadAllBytes(path);
             Name = Path.GetFileName(path);
-            CompressedData = Prs.CompressData(data).ToArray();
+            CompressedData = Prs.CompressData(data);
             RwVersion.RwVersion = (uint)CommonRWVersions.Heroes;
         }
 
@@ -60,18 +62,18 @@ namespace HeroesONE_R.Structures.Substructures
         /// <summary>
         /// Returns a copy of the current file that has been PRS Decompressed, ready for writing to disk or manipulation.
         /// </summary>
-        public byte[] DecompressThis()
+        public Span<byte> DecompressThis()
         {
-            return Prs.DecompressData(this.CompressedData).ToArray();
+            return Prs.DecompressData(this.CompressedData.Span);
         }
 
         /// <summary>
         /// Writes an uncompressed copy of this individual file to disk.
         /// </summary>
-        /// <returns></returns>
         public void WriteToFile(string path)
         {
-            File.WriteAllBytes(path, Prs.DecompressData(this.CompressedData).ToArray());
+	        using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+	        fileStream.Write(this.CompressedData.Span);
         }
     }
 }

@@ -100,7 +100,7 @@ namespace HeroesONE_R.Structures
             for (int x = 0; x < Files.Count; x++)
             {
                 ONEFile oneFile = new ONEFile();
-                oneFile.CompressedData = Files[x].CompressedData;
+                oneFile.CompressedData = Files[x].CompressedData.ToArray();
                 oneFile.ONEFileHeader.FileNameIndex = x + 2; // ArchiveFile names always start after two blank entries, for some reason...
                 oneFile.ONEFileHeader.FileSize = oneFile.CompressedData.Length;
                 oneFile.ONEFileHeader.RwVersion = Files[x].RwVersion;
@@ -183,7 +183,7 @@ namespace HeroesONE_R.Structures
                 else fileEntry = new ONE50FileEntry(Files[x].Name);
 
                 // Set file size.
-                fileEntry.FileSize = (int)Prs.GetDecompressedSize(Files[x].CompressedData);
+                fileEntry.FileSize = (int)Prs.GetDecompressedSize(Files[x].CompressedData.Span);
                 localFiles.Add(fileEntry);
             }
 
@@ -229,7 +229,7 @@ namespace HeroesONE_R.Structures
 
             // File data
             for (int x = 0; x < Files.Count; x++)
-            { fileData.AddRange(Files[x].CompressedData); }
+            { fileData.AddRange(Files[x].CompressedData.Span); }
 
             return fileData;
         }
