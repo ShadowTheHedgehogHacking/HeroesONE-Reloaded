@@ -27,8 +27,8 @@ namespace HeroesONE_R.Utilities
             {
                 // Get the maximum possible size of the compressed data
                 nuint maxCompressedSize = NativeMethods.prs_calculate_max_compressed_size((nuint)sourceData.Length);
-                byte[] dest = GC.AllocateUninitializedArray<byte>((int)maxCompressedSize);
-                fixed (byte* destPtr = &dest[0])
+                byte[] dest = new byte[(int)maxCompressedSize];
+                fixed (byte* destPtr = dest)
                 {
                     nuint compressedSize = NativeMethods.prs_compress(srcPtr, destPtr, (nuint)sourceData.Length);
                     return dest.AsMemory(0, (int)compressedSize);
